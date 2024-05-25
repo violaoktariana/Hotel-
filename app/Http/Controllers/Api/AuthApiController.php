@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Passport\Token;
 use Laravel\Passport\TokenRepository;
 
 class AuthApiController extends Controller
@@ -101,18 +102,14 @@ class AuthApiController extends Controller
 
         $datauser = User::where('email', $request->email)->first();
 
-        // cek token apakah ada
-        if (!$datauser->token) {
-            $token = $datauser->createToken('api-token');
-        }else{
-            // delete token
-            $datauser->tokens()->delete();
-            $token = $datauser->createToken('api-token');
-        }
+        Token::where('user_id', $datauser->id)->delete();
+
+        $token = $datauser->createToken('api-token');
+
         return response()->json([
             'status' => true,
             'message' => 'Login Success',
-            'token' => $token,
+            'token' => $token->accessToken,
             'user' => $datauser,
         ]);
     }

@@ -42,10 +42,22 @@ class DatabaseSeeder extends Seeder
             [
                 'type' => 'deluxe',
                 'price' => 750000,
-                'detail' => 'Are modern decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
+                'desc' => 'Are modern decorated, can accommodate up to 2 persons ...',
+                'description' => 'Are modern decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
                 'quantity' => 10,
                 'ready' => 10,
+                'rating' => '[1, 1, 1, 1, 0]',
                 'path' => 'rooms/deluxe.jpg'
+            ],
+            [
+                'type' => 'meeting',
+                'price' => 1250000,
+                'desc' => 'Are meeting decorated, can accommodate up to 2 persons ...',
+                'description' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
+                'quantity' => 5,
+                'ready' => 5,
+                'rating' => '[1, 1, 1, 1, 1]',
+                'path' => 'rooms/meeting.jpg'
             ]
         ];
 

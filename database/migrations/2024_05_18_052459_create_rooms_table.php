@@ -10,15 +10,17 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    
+
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('type');
             $table->integer('price');
-            $table->text('detail');
+            $table->string('desc');
+            $table->text('description');
             $table->integer('quantity');
             $table->integer('ready');
+            $table->json('rating');
             $table->text('path');
             $table->timestamps();
         });
