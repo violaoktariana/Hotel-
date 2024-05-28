@@ -102,8 +102,6 @@ class AuthApiController extends Controller
 
         $datauser = User::where('email', $request->email)->first();
 
-        Token::where('user_id', $datauser->id)->delete();
-
         $token = $datauser->createToken('api-token');
 
         return response()->json([
@@ -121,6 +119,7 @@ class AuthApiController extends Controller
         $tokenRepository = app(TokenRepository::class);
         $tokenRepository->revokeAccessToken($tokenId);
 
+        // Token::where('user_id', $request->user()->id)->delete();
         return response()->json(
             [
                 'status' => true,
