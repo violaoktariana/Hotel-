@@ -42,16 +42,14 @@ class AuthApiController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'is_active' => 0,
-            'level' => 'user',
         ];
 
         $user = User::create($datauser);
 
         return response()->json(
             [
-                'status' => true,
                 'message' => 'Register user success',
-                'user' => $user,
+                'data' => $user,
             ],
             200,
         );
@@ -69,7 +67,6 @@ class AuthApiController extends Controller
         if ($validator->fails()) {
             return response()->json(
                 [
-                    'status' => false,
                     'message' => 'Error Invalid Fields',
                     'error' => $validator->errors(),
                 ],
@@ -82,7 +79,6 @@ class AuthApiController extends Controller
         if (!auth()->attempt($credential)) {
             return response()->json(
                 [
-                    'status' => false,
                     'message' => 'Wrong username or password',
                 ],
                 401,
@@ -93,7 +89,6 @@ class AuthApiController extends Controller
         if (!Auth::attempt($request->only(['email', 'password']))) {
             return response()->json(
                 [
-                    'status' => false,
                     'message' => 'Wrong username or password',
                 ],
                 401,
@@ -105,10 +100,9 @@ class AuthApiController extends Controller
         $token = $datauser->createToken('api-token');
 
         return response()->json([
-            'status' => true,
             'message' => 'Login Success',
             'token' => $token->accessToken,
-            'user' => $datauser,
+            'data' => $datauser,
         ]);
     }
 
@@ -122,7 +116,6 @@ class AuthApiController extends Controller
         // Token::where('user_id', $request->user()->id)->delete();
         return response()->json(
             [
-                'status' => true,
                 'message' => 'Logout success',
             ],
             200,

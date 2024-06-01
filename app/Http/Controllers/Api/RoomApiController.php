@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class RoomApiController extends Controller
 {
@@ -16,14 +17,12 @@ class RoomApiController extends Controller
         $rooms = Room::all();
         if ($rooms->count() <= 0) {
             return response()->json([
-                'status' => false,
                 'message' => 'Data not available',
             ], 404);
         }
 
         return response()->json([
-            'status' => true,
-            'room' => $rooms
+            'data' => $rooms
         ], 200);
     }
 
@@ -40,7 +39,25 @@ class RoomApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name_room' => 'required|unique:rooms,name_room',
+            'price' => 'required',
+            'short_desc' => 'required',
+            'detail_desc' => 'required',
+            'category_room' => 'required',
+            'path' => 'nullable|image',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Error Invalid Fields',
+                'error' => $validator->errors(),
+            ], 422);
+        }
+        $rooms = Room::create($request->all());
+        return response()->json([
+            'data' => $rooms
+        ], 201);
     }
 
     /**
@@ -48,7 +65,9 @@ class RoomApiController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return response()->json([
+            'data' => $room
+        ]);
     }
 
     /**
@@ -64,7 +83,10 @@ class RoomApiController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        //
+        $rooms = Room::create($request->all());
+        return response()->json([
+            'data' => $rooms
+        ], 201);
     }
 
     /**

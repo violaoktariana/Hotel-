@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\RoomFacilities;
+use App\Models\Hotel_Facility;
 use Illuminate\Http\Request;
 
-class RoomFacilitiesController extends Controller
+class HotelFacilitiesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roomfacility = RoomFacilities::with('room')->get();
-        if ($roomfacility->count() <= 0) {
+        $hotelfacility = Hotel_Facility::all();
+        if ($hotelfacility->count() <= 0) {
             return response()->json([
                 'status' => false,
                 'message' => 'Data not available',
@@ -23,7 +23,7 @@ class RoomFacilitiesController extends Controller
 
         return response()->json([
             'status' => true,
-            'roomfacilities' => $roomfacility
+            'hotelfacilities' => $hotelfacility
         ], 200);
     }
 
@@ -40,7 +40,7 @@ class RoomFacilitiesController extends Controller
      */
     public function show(string $id)
     {
-        
+        //
     }
 
     /**

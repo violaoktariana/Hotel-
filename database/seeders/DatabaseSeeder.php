@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Hotel_Facility;
 use App\Models\User;
 use App\Models\Room;
 use App\Models\RoomFacilities;
@@ -23,7 +25,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'viooo@gmail.com',
                 'password' => Hash::make('admin'),
                 'is_active' => 1,
-                'level' => 'admin',
             ],
             [
                 'fullname' => 'Alvin',
@@ -31,7 +32,6 @@ class DatabaseSeeder extends Seeder
                 'email' => 'alfian@gmail.com',
                 'password' => Hash::make('123456'),
                 'is_active' => 1,
-                'level' => 'user',
             ],
         ];
 
@@ -41,24 +41,22 @@ class DatabaseSeeder extends Seeder
 
         $datakamar = [
             [
-                'type' => 'deluxe',
+                'name_room' => 'deluxe',
                 'price' => 750000,
-                'desc' => 'Are modern decorated, can accommodate up to 2 persons ...',
-                'description' => 'Are modern decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
-                'quantity' => 10,
-                'ready' => 10,
-                'rating' => '[1, 1, 1, 1, 0]',
-                'path' => 'rooms/deluxe.jpg'
+                'short_desc' => 'Are modern decorated, can accommodate up to 2 persons ...',
+                'detail_desc' => 'Are modern decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
+                'path' => 'rooms/deluxe.jpg',
+                'quantity' => '12',
+                'ready' => '10'
             ],
             [
-                'type' => 'meeting',
+                'name_room' => 'meeting',
                 'price' => 1250000,
-                'desc' => 'Are meeting decorated, can accommodate up to 2 persons ...',
-                'description' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
-                'quantity' => 5,
-                'ready' => 5,
-                'rating' => '[1, 1, 1, 1, 1]',
-                'path' => 'rooms/meeting.jpg'
+                'short_desc' => 'Are meeting decorated, can accommodate up to 2 persons ...',
+                'detail_desc' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
+                'path' => 'rooms/meeting.jpg',
+                'quantity' => '12',
+                'ready' => '10'
             ]
         ];
 
@@ -68,23 +66,55 @@ class DatabaseSeeder extends Seeder
 
         $datafasilitas = [
             [
+                'room_id' => 1,
                 'name' => 'deluxe',
-                'detail' => 'Are modern decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
-                'path' => 'facilities/bathtub.webp',
-                'path' => 'facilities/bed-deluxe.jpg',
-                'path' => 'facilities/tv-deluxe.avif'
+                'detail' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
+                'path' => 'facilities/bed-deluxe.avif'
             ],
             [
+                'room_id' => 2,
                 'name' => 'meeting',
                 'detail' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed and equipped with high tech comforts such as high speed internet.',
-                'path' => 'facilities/shower-standar.jpg',
-                'path' => 'facilities/bed-standar.jpg',
-                'path' => 'facilities/tv-standar.webp',
+                'path' => 'facilities/bed-standar.jpg'
             ]
         ];
 
         foreach ($datafasilitas as $fasilitas) {
             RoomFacilities::create($fasilitas);
+        }
+        $datafasilitashotel = [
+            [
+                'facility_name' => 'gym',
+                'detail' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed',
+                'path' => 'facilities/tv-standar.jpg',
+                'facility_type' => 'public',
+                'status' => 'booked'
+            ],
+            [
+                'facility_name' => 'pool',
+                'detail' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed',
+                'path' => 'facilities/tv-standar.jpg',
+                'facility_type' => 'public',
+                'status' => 'booked'
+            ],
+            [
+                'facility_name' => 'bar',
+                'detail' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed',
+                'path' => 'facilities/tv-standar.jpg',
+                'facility_type' => 'public',
+                'status' => 'booked'
+            ],
+            [
+                'facility_name' => 'ballroom',
+                'detail' => 'Are meeting decorated, can accommodate up to 2 persons, totally soundproofed',
+                'path' => 'facilities/tv-standar.jpg',
+                'facility_type' => 'private',
+                'status' => 'booked'
+            ]
+        ];
+
+        foreach ($datafasilitashotel as $fasilitashotel) {
+            Hotel_Facility::create($fasilitashotel);
         }
     }
 }

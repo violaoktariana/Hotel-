@@ -14,14 +14,14 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name_room');
             $table->integer('price');
-            $table->string('desc');
-            $table->text('description');
-            $table->integer('quantity');
-            $table->integer('ready');
-            $table->json('rating');
-            $table->text('path');
+            $table->string('short_desc');
+            $table->text('detail_desc');
+            $table->enum('category_room', ['private', 'date', 'meeting']);
+            $table->text('path')->nullable();
+            $table->integer('quantity')->nullable();
+            $table->integer('ready')->nullable();
             $table->timestamps();
         });
     }
